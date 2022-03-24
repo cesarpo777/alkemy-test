@@ -131,7 +131,14 @@ const updatePelicula = async( req, res ) => {
     let update = {};
     
     try {
-        
+
+        const existeNombre = await Pelicula.findAll({ where:{ id: {[Op.ne]: id} , titulo: titulo }})
+        if( existeNombre.length === 1){
+            return res.status(400).json({
+                msg:`Ya existe una pelicula con el nombre ${ titulo }`
+            })
+        }
+
         if( titulo ){ update['titulo'] = titulo }
         if( calificacion ){ update['calificacion'] = calificacion }
         if( imagen ){ update['imagen'] = imagen }

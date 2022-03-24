@@ -83,13 +83,20 @@ const createCharacter = async ( req, res ) => {
 
     const data = req.body;
 
-    const character = await Personaje.create( data )
+    try {
+        const character = await Personaje.create( data )
+            
+        res.status(200).json({
+            msg: 'Personaje creado !',
+            character
+        })
         
-    res.status(200).json({
-        msg: 'Personaje creado !',
-        character
-
-    })
+    } catch (error) {
+        console.log( error )
+        return res.status(500).json({
+            msg: 'Ocurrió un error, comunicarse con el adm'
+        })
+    }
    
 
 }

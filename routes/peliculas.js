@@ -42,7 +42,7 @@ router.put('/:id',
     validarJWT,
     check('id').custom( existePeliculaConId ),
     body('titulo').trim(),
-    check('titulo').custom( existePeliculaConNombre ),
+    //check('titulo').custom( existePeliculaConNombre ),
     validarCampos
 ]
 ,updatePelicula )
