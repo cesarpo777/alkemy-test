@@ -25,6 +25,7 @@ router.post('/register',
     body('password').trim(),
     check('password', 'La contraseña debe tener de 4 a 15 caracteres').isLength({ min: 4, max: 15 }),
     body('correo').trim(),
+    check('correo','El campo correo debe tener un formato válido').isEmail(),
     check('correo').custom( existeUserCorreo ),
     validarCampos
 ]
