@@ -20,8 +20,7 @@ const Pelicula = db.define('Pelicula', {
     },
 
     fechaDeCreacion: {
-        type: DataTypes.DATEONLY,
-        defaultValue: 'some date'
+        type: DataTypes.DATEONLY
     },
 
     calificacion:{
