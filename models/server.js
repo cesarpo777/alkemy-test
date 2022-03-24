@@ -35,7 +35,8 @@ class Server{
             await db.sync()
             console.log('database online')
         } catch (error) {
-            throw new Error ( error )
+            //throw new Error ( error )
+            console.log(error)
         }
     }
     
