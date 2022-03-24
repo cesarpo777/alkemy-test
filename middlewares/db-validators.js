@@ -15,7 +15,9 @@ const existeUserCorreo = async( correo ) => {
 const existeUserId = async( id ) => {
 
     const existeUser = await Usuario.findOne({ where:{ id }})
-    console.log( existeUser)
+    if( !existeUser ){
+        throw new Error(`No existe un usuario con el id: ${id}`)
+    }
     
 }
 /** PELICULAS ***/
