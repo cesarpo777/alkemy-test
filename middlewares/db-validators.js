@@ -12,6 +12,12 @@ const existeUserCorreo = async( correo ) => {
     }
 }
 
+const existeUserId = async( id ) => {
+
+    const existeUser = await Usuario.findOne({ where:{ id }})
+    console.log( existeUser)
+    
+}
 /** PELICULAS ***/
 
 const existePeliculaConId = async( id ) => {
@@ -58,5 +64,6 @@ module.exports = {
     existePersonajeConId,
     existePersonajeConNombre,
     existePeliculaConId,
-    existePeliculaConNombre
+    existePeliculaConNombre,
+    existeUserId
 }

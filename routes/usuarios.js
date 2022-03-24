@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const { check } = require('express-validator')
 const { validarCampos } = require('../middlewares/validar-campos')
+const { existeUserId } = require('../middlewares/db-validators')
 const { getUsuarios,
         getUsuarioxId,
         updateUsuario,
@@ -13,7 +14,12 @@ router.get('/', getUsuarios )
 
 router.get('/:id', getUsuarioxId )
 
-router.delete('/:id', deleteUsuario )
+router.delete('/:id',
+[
+    check('id').custom( existeUserId ),
+    validarCampos
+]
+,deleteUsuario )
 
 router.put('/:id', updateUsuario )
 

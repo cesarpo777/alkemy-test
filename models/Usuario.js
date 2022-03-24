@@ -17,6 +17,11 @@ const Usuario = db.define('Usuario', {
     password:{
         type: DataTypes.STRING,
         allowNull: false
+    },
+
+    activo:{
+        type: DataTypes.BOOLEAN,
+        defaultValue: true
     }
    
 }, { timestamps: false })
