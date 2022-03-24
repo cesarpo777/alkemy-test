@@ -6,7 +6,7 @@ const Usuario = require('../models/Usuario')
 const getUsuarios = async( req, res ) => {
 
     try {
-        const usuarios = await Usuario.findAndCountAll({ where: { activo: true }})
+        const usuarios = await Usuario.findAndCountAll({attributes:{ exclude: ['password']}, where: { activo: true }})
     
         res.status(200).json({
             usuarios
@@ -26,7 +26,7 @@ const getUsuarioxId = async( req, res ) => {
     const { id } = req.params;
 
     try {
-        const user = await Usuario.findByPk( id )
+        const user = await Usuario.findOne({ attributes: { exclude: ['password']}, where: { id }})
         if(!user){
             res.status(400).json({
                 msg: `No existe un usuario con el id: ${ id }`
