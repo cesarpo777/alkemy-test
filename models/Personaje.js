@@ -37,7 +37,7 @@ const Personaje = db.define('Personaje', {
     }
     
  
-}, { timestamps: false })
+})
 
 Personaje.belongsToMany( Pelicula, { through: movies_characters })
 
