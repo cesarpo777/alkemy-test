@@ -104,7 +104,40 @@ const createCharacter = async ( req, res ) => {
 
 const editCharacter = async( req, res ) => {
 
-  
+    const { id } = req.params;
+    const { nombre, historia, edad, img, peso, activo  }= req.body;
+    let update = { nombre, historia , edad };
+
+    try {
+
+        const existeNombre = await Personaje.findAll({ where:{ id: {[Op.ne]: id} , nombre: nombre }})
+        if( existeNombre.length === 1){
+            return res.status(400).json({
+                msg:`Ya existe una personaje con el nombre ${ nombre }`
+            })
+        }
+
+        if( edad ){ update['edad'] = edad }
+        if( img ){ update['img'] = img }
+        if( peso ){ update['peso'] = peso }
+        if( activo ){ update['activo'] = activo }
+
+        const personajeModificado = await Personaje.update( update, { where: { id }})
+        console.log( personajeModificado )
+        if( personajeModificado ){
+            const personaje = await Personaje.findByPk(id)
+            res.status(200).json({
+                msg: 'Personaje acutalizado',
+                personaje
+            })
+        }
+     
+    } catch (error) {
+        console.log( error )
+        return res.status( 500 ).json({
+            msg:'Ocurrió un error, comunicarse con el adm'
+        })
+    }
 
 }
 

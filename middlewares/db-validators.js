@@ -55,7 +55,7 @@ const existePersonajeConNombre = async( nombre ) => {
 const existePersonajeConId = async( id ) => {
     
     const existePersonaje = await Personaje.findAll( { where: { id: id , activo: true }})
-
+    console.log( existePersonaje )
     if( existePersonaje.length === 0 ){
         throw new Error(`No existe un personaje con id: ${id}`)
     }

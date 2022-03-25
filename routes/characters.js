@@ -45,7 +45,20 @@ createCharacter)
 
 
 // Modificar personaje
-router.put('/:id', validarJWT ,editCharacter)
+router.put('/:id',
+[
+  validarJWT,
+  check('id').custom( existePersonajeConId ),
+  check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+  body('nombre').trim(),
+  body('historia').trim(),
+  check('historia','El campo historia es obligatorio').not().isEmpty(),
+  body('edad').trim(),
+  check('edad','El campo edad es mandatorio').not().isEmpty(),
+  check('edad', 'La edad debe ser un numero entero y mayor a cero').isInt({ gt: 0 }),
+  validarCampos
+]
+,editCharacter)
 
 // Borrar personaje 
 router.delete('/:id',
