@@ -36,6 +36,8 @@ router.post('/',
     check('nombre').custom( existePersonajeConNombre ),
     body('historia').trim(),
     check('historia','El campo historia es obligatorio').not().isEmpty(),
+    check('edad','El campo edad es mandatorio').not().isEmpty(),
+    check('edad', 'La edad debe ser un numero entero').isInt(),
     validarCampos
 ],
 createCharacter)
