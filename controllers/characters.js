@@ -12,9 +12,9 @@ const getAllCharacters = async ( req, res ) => {
    }
 
 
-   if( req.query.nombre !== undefined && req.query.nombre.length > 0){
+   if( req.query.name !== undefined && req.query.name.length > 0){
    // { [Op.substring] : '%'+req.query.name+'%' }
-       query['nombre'] = {[Op.substring]: '%'+req.query.nombre+'%'}
+       query['nombre'] = {[Op.substring]: '%'+req.query.name+'%'}
    }
 
    if( req.query.edad !== undefined && req.query.edad.length > 0){
