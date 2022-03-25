@@ -8,7 +8,7 @@ const { getPeliculas,
         deletePelicula
 } = require('../controllers/peliculas');
 const { validarJWT } = require('../middlewares/validar-jwt');
-const { existePeliculaConId, existePeliculaConNombre } = require('../middlewares/db-validators');
+const { existePeliculaConId, existePeliculaConNombre, existeGeneroConId } = require('../middlewares/db-validators');
 
 const router = Router();
 
@@ -31,7 +31,10 @@ router.post('/',
    validarJWT,
    check('titulo','El campo titulo es obligatorio').not().isEmpty().trim(),
    check('titulo').custom( existePeliculaConNombre ),
+   body('GeneroId').trim(),
    check('GeneroId', 'La pelicula debe pertenecer a un genero').not().isEmpty(),
+   check('GeneroId','El genero debe tener un formato numerico').isInt(),
+   check('GeneroId').custom( existeGeneroConId ),
    validarCampos
 ] ,createPelicula )
 

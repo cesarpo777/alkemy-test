@@ -1,6 +1,7 @@
 const Usuario = require('../models/Usuario')
 const Personaje = require('../models/Personaje')
 const Pelicula = require('../models/Pelicula')
+const Genero = require('../models/Genero')
 
 
 /*** USUARIOS ***/
@@ -61,11 +62,23 @@ const existePersonajeConId = async( id ) => {
     }
 }
 
+/** GENERO */
+
+const existeGeneroConId = async( genero ) => {
+    
+    const existeGenero = await Genero.findByPk( genero )
+    console.log( existeGenero )
+    if(!existeGenero){
+        throw new Error(`El género ${ genero } no es un género válido`)
+    }
+}
+
 module.exports = {
     existeUserCorreo,
     existePersonajeConId,
     existePersonajeConNombre,
     existePeliculaConId,
     existePeliculaConNombre,
-    existeUserId
+    existeUserId,
+    existeGeneroConId
 }
