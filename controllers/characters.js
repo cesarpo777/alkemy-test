@@ -17,8 +17,8 @@ const getAllCharacters = async ( req, res ) => {
        query['nombre'] = {[Op.substring]: '%'+req.query.name+'%'}
    }
 
-   if( req.query.edad !== undefined && req.query.edad.length > 0){
-       let numericEdad = Number( req.query.edad )
+   if( req.query.age !== undefined && req.query.age.length > 0){
+       let numericEdad = Number( req.query.age )
        console.log( typeof numericEdad )
        query['edad'] = numericEdad
    }
