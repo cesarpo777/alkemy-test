@@ -12,7 +12,7 @@ class Server{
         this.paths = {
             auth: '/auth',
             characters: '/characters',
-            generos: '/genero',
+            generos: '/generos',
             peliculas:'/movies',
             usuarios: '/usuarios'
         }

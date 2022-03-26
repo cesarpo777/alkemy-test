@@ -23,6 +23,6 @@ const Genero = db.define('Genero', {
 
 
 //Genero.belongsToMany( Pelicula, { through: GeneroYPeliculas})
-
+//Pelicula.belongsToMany( Genero , { through: GeneroYPeliculas })
 
 module.exports = Genero;

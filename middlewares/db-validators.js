@@ -64,12 +64,12 @@ const existePersonajeConId = async( id ) => {
 
 /** GENERO */
 
-const existeGeneroConId = async( genero ) => {
+const existeGeneroConId = async( id ) => {
     
-    const existeGenero = await Genero.findByPk( genero )
-    console.log( existeGenero )
+    const existeGenero = await Genero.findByPk( id )
+   
     if(!existeGenero){
-        throw new Error(`El género ${ genero } no es un género válido`)
+        throw new Error(`El género con el ${ id } no existe`)
     }
 }
 
