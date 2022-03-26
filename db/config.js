@@ -11,17 +11,5 @@ const db = new Sequelize(process.env.DB_NAME ,process.env.DB_USERNAME, process.e
   //logging: false
 })
 
-// LOCAL ENVIROMENT
-/* const db = new Sequelize('alkemy', 'root', 'cesar',{
-    host:'localhost',
-    dialect: 'mysql',
-    dialectOptions: {
-        multipleStatements: true
-      }
-    //logging: false
-}) */
-
-    
-
 
 module.exports = db;

@@ -1,0 +1,608 @@
+{
+	"info": {
+		"_postman_id": "8a12467b-3c72-4c7e-935e-98e722c644c0",
+		"name": "DISNEY-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AUTH",
+			"item": [
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correo\":\"correo@correo.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}auth/login",
+							"host": [
+								"{{url4}}auth"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Servicio de login\n\n*   Valida que el correo enviado por el cliente tenga un formato válido\n*   Que el correo exista en la base de datos\n*   Que la contraseña sea la correspondiente al correo enviado\n*   Responde con usuario y token"
+					},
+					"response": []
+				},
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \"nombre\":\"Alejandro\",\r\n    \"correo\":\"correo8@correo.com\",\r\n    \"password\":\"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}auth/register",
+							"host": [
+								"{{url4}}auth"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "Servicio de registro\n\n*   Permite el registro de nuevos usuarios\n*   Verifica que el correo tenga un formato válido\n*   Verifica el length del campo nombre (min: 3 caracteres)\n*   Verifica el length de la contraseña (min: 4, max: 15)\n*   Verifica que el correo no exista en la base de datos\n*   Devuelve usuario y token"
+					},
+					"response": []
+				}
+			],
+			"description": "SERVICIOS DE AUTENTICACIÓN"
+		},
+		{
+			"name": "CHARACTERS",
+			"item": [
+				{
+					"name": "GET CHARACTERS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}characters",
+							"host": [
+								"{{url4}}characters"
+							]
+						},
+						"description": "Servicio para obtener todos los personajes\n\n*   Devuelve un listado de todos los personajes existentes en la base de datos, mostrando únicamente los campos imagen, y nombre\n*   Devuelve el total de documentos encontrados\n*   Acepta parámetros de búsqueda \"name=K\", \"age=30\", en el caso de name, devolverá los personajes que contengan el caracter enviado en su nombre\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "GET CHARACTERS BY ID || Detalle de personaje",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0LCJpYXQiOjE2NDgzMDA5ODEsImV4cCI6MTY0ODMyOTc4MX0.t0qd-wCXhRPkmy9kgklspRFSlfo-4rl93ZtLHz7YDqE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}characters/detalle/1",
+							"host": [
+								"{{url4}}characters"
+							],
+							"path": [
+								"detalle",
+								"1"
+							]
+						},
+						"description": "Detalle de Personaje\n\n*   Devuelve el personaje con todos sus atributos y las películas en las que aparece\n*   Verifica la existencia del personaje\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE CHARACTER",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Pocahontas\",\r\n    \"historia\":\"Es una princesa nativo-americana de la tribú dirigida por su padre, el Jefe Powhatan, quien quiere detenidamente que Pocahontas se case con Kocoum, el hombre más fuerte de la tribú. Sin embargo, Pocahontas se enamora del colono John Smith aunque, más tarde, encuentra el amor verdadero con John Rolfe.\",\r\n    \"edad\":\"25\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}characters",
+							"host": [
+								"{{url4}}characters"
+							]
+						},
+						"description": "Servicio para crear un personaje\n\n*   Valida el campo nombre ( requerido )\n*   Verifica que no exista un personaje con el mismo nombre\n*   Valida el campo historia ( requerido )\n*   Valida el campo edad ( requerido ) y que el mismo sea un entero\n*   Campos opcionales ( imagen, peso, activo )\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE CHARACTER",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}characters/214",
+							"host": [
+								"{{url4}}characters"
+							],
+							"path": [
+								"214"
+							]
+						},
+						"description": "Servicio para dar de baja un personaje\n\n*   Chequea que exista el personaje que se quiere eliminar\n*   Devuelve el personaje que ha sido eliminado ( dado de baja )\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "EDIT CHARACTER",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \"nombre\":\"Pocahontas\",\r\n    \"historia\":\"Es una princesa nativo-americana de la tribú dirigida por su padre, el Jefe Powhatan, quien quiere detenidamente que Pocahontas se case con Kocoum, el hombre más fuerte de la tribú. Sin embargo, Pocahontas se enamora del colono John Smith aunque, más tarde, encuentra el amor verdadero con John Rolfe.\",\r\n    \"edad\":\"25\",\r\n    \"img\":\"another-url\",\r\n    \"peso\":\"54kg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}characters/334",
+							"host": [
+								"{{url4}}characters"
+							],
+							"path": [
+								"334"
+							]
+						},
+						"description": "Servicio para modificar personaje\n\n*   Verifica el campo nombre ( obligatorio )\n*   Verifica que no exista un personaje con el nombre nuevo\n*   Verifica el campo historia (obligatorio )\n*   Verifica el campo edad ( obligatorio )\n*   Permite modificar los demás atributos del personaje\n*   Requiere token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PELICULAS",
+			"item": [
+				{
+					"name": "CREAR PELICULA",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\":\"Pocahontas\",\r\n    \"GeneroId\": 4,\r\n    \"fechaDeCreacion\":\"1995-06-23\",\r\n    \"calificacion\":4\r\n}\r\n   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}movies",
+							"host": [
+								"{{url4}}movies"
+							]
+						},
+						"description": "Servicio para crear película\n\n*   Valida el campo título\n*   Verifica que no exista una película con ese título en la base de datos\n*   Valida el campo GeneroId ( debe ser un genero válido, debe ser numérico )\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "OBTENER PELICULAS - LISTADO DE PELICULAS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0LCJpYXQiOjE2NDgzMDA5ODEsImV4cCI6MTY0ODMyOTc4MX0.t0qd-wCXhRPkmy9kgklspRFSlfo-4rl93ZtLHz7YDqE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}movies?genre=6&order=desc",
+							"host": [
+								"{{url4}}movies"
+							],
+							"query": [
+								{
+									"key": "genre",
+									"value": "6"
+								},
+								{
+									"key": "order",
+									"value": "desc"
+								}
+							]
+						},
+						"description": "Servicio para obtener películas\n\n*   Devuelve total de registros, y registros con atributos imagen, titulo y fecha de creación,\n*   Permite filtrar por :\n    *   Fecha de creación: ?order=asc|desc\n    *   Nombre y fecha de creación: ?name={titulo}&order=asc|desc\n    *   Genero y fecha de creación: ?genre={idGenero}&order=asc|desc\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "OBTENER PELICULA X ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0LCJpYXQiOjE2NDgzMDA5ODEsImV4cCI6MTY0ODMyOTc4MX0.t0qd-wCXhRPkmy9kgklspRFSlfo-4rl93ZtLHz7YDqE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}movies/detalle/5",
+							"host": [
+								"{{url4}}movies"
+							],
+							"path": [
+								"detalle",
+								"5"
+							]
+						},
+						"description": "Servicio para ver detalle de película\n\n*   Verifica si existe la película con el id enviado por el cliente\n*   Devuelve la película con todos sus atributos más los personajes que aparecen en ella, más los géneros a los que pertenece\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR PELICULA ID",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}movies/2",
+							"host": [
+								"{{url4}}movies"
+							],
+							"path": [
+								"2"
+							]
+						},
+						"description": "Servicio para eliminar peliculas\n\n*   Verifica que exista una pelicula con el id enviado por el cliente\n*   Elimina la pelicula ( activo: false )\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR PELICULA ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n  \"titulo\":\" MOANA \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}movies/3",
+							"host": [
+								"{{url4}}movies"
+							],
+							"path": [
+								"3"
+							]
+						},
+						"description": "Servicio para editar película\n\n*   Verifica que exista una película con el id enviado por el cliente\n*   Chequea si el nuevo nombre ya está en uso\n*   Permite actualizar todos los atributos de la película\n*   Requiere token"
+					},
+					"response": []
+				}
+			],
+			"description": "Carpeta que contiene los servicios para realizar un CRUD de peliculas",
+			"auth": {
+				"type": "bearer"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "USUARIOS",
+			"item": [
+				{
+					"name": "GET USUARIOS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}usuarios",
+							"host": [
+								"{{url4}}usuarios"
+							],
+							"query": [
+								{
+									"key": "x-token",
+									"value": "",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Servicio para obtener todos los usuario de la bd\n\n*   Devuelve cantidad de registros\n*   Devuelve todos los usuarios activos con los campos id, nombre, correo y estado\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "GET USUARIO X ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}usuarios/14",
+							"host": [
+								"{{url4}}usuarios"
+							],
+							"path": [
+								"14"
+							]
+						},
+						"description": "Servicio para obtener usuario por id\n\n*   Verifica la existencia del usuario\n*   Devuelve el usuario con el id enviado por el cliente\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "ELIMINAR USUARIO",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}usuarios/74",
+							"host": [
+								"{{url4}}usuarios"
+							],
+							"path": [
+								"74"
+							]
+						},
+						"description": "Servicio para eliminar usuario\n\n*   Verifica la existencia de un usuario con el id enviado por el cliente\n*   Solo el usuario puede borrarse a si mismo\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR USUARIO",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjc0LCJpYXQiOjE2NDgyMjA1ODAsImV4cCI6MTY0ODI0OTM4MH0.XBAe7wn2eQixJHXEmQYcz1jhqdHZqKPeHM5uUdvWffE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Ale Baratella\",\r\n    \"correo\":\"correo3@correo.com\",\r\n    \"password\":\"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}usuarios/74",
+							"host": [
+								"{{url4}}usuarios"
+							],
+							"path": [
+								"74"
+							]
+						},
+						"description": "Servicio para editar usuario\n\n*   Verifica la existencia de el usuario con el id enviado por el cliente\n*   Verifica que quien realiza la modificación es el mismo usuario\n*   Permite cambiar nombre, contraseña y correo\n*   Verifica que el nuevo correo esté disponible para usarse\n*   Requiere token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GENEROS",
+			"item": [
+				{
+					"name": "CREAR GENERO",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTY0Nzg3NjExOCwiZXhwIjoxNjQ3OTA0OTE4fQ.VxnM4eXJ6W4vWetucY6Ka4REhTIbIGWeTv6V_3_quY4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"terror\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}/generos",
+							"host": [
+								"{{url4}}"
+							],
+							"path": [
+								"generos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OBTENER GENEROS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0LCJpYXQiOjE2NDgzMDA5ODEsImV4cCI6MTY0ODMyOTc4MX0.t0qd-wCXhRPkmy9kgklspRFSlfo-4rl93ZtLHz7YDqE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}generos",
+							"host": [
+								"{{url4}}generos"
+							]
+						},
+						"description": "Servicio para obtener todos los géneros\n\n*   Devuelve todos los géneros existentes y sus películas asociadas\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "OBTENER GENERO POR ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0LCJpYXQiOjE2NDgzMDA5ODEsImV4cCI6MTY0ODMyOTc4MX0.t0qd-wCXhRPkmy9kgklspRFSlfo-4rl93ZtLHz7YDqE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url4}}generos/5",
+							"host": [
+								"{{url4}}generos"
+							],
+							"path": [
+								"5"
+							]
+						},
+						"description": "Servicio para obtener genero por id\n\n*   Verifica la existencia del genero con el id enviado por el cliente\n*   Devuelve el género y sus películas asociadas\n*   Requiere token"
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR GENERO ID",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjE0LCJpYXQiOjE2NDgzMDA5ODEsImV4cCI6MTY0ODMyOTc4MX0.t0qd-wCXhRPkmy9kgklspRFSlfo-4rl93ZtLHz7YDqE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Musical\",\r\n    \"imagen\":\"some other url\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url4}}generos/3",
+							"host": [
+								"{{url4}}generos"
+							],
+							"path": [
+								"3"
+							]
+						},
+						"description": "Servicio para modificar genero por id\n\n*   Verifica la existencia del género\n*   Permite cambiar nombre e imagen, y verifica que no exista ya en base de datos otro genero con el nuevo nombre\n*   Requiere token"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
