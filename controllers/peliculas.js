@@ -55,7 +55,8 @@ const getPeliculas = async (req, res) => {
             
             const peliculas = await Pelicula.findAndCountAll({
                 attributes:['imagen','titulo', 'fechaDeCreacion'], 
-                where:{ activo: true }
+                where:{ activo: true },
+                order:[['fechaDeCreacion', order ]]
             })
             res.status(200).json({
                 peliculas
