@@ -1,11 +1,8 @@
 
 const { DataTypes } = require('sequelize');
 const db = require('../db/config');
-const movies_characters = require('../models/movies_characters')
-const Personaje = require('../models/Personaje')
-
-
-
+const Genero = require('../models/Genero')
+const GeneroYPeliculas = require('../models/GeneroYPeliculas')
 
 const Pelicula = db.define('Pelicula', {
 
@@ -28,11 +25,6 @@ const Pelicula = db.define('Pelicula', {
         defaultValue: 1
     },
 
-    GeneroId:{
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
-
     activo:{
         type: DataTypes.BOOLEAN,
         defaultValue: true
@@ -41,6 +33,7 @@ const Pelicula = db.define('Pelicula', {
 
 }, { timestamps: false})
 
-
+Pelicula.belongsToMany( Genero , { through: GeneroYPeliculas })
+Genero.belongsToMany( Pelicula, { through: GeneroYPeliculas })
 
 module.exports = Pelicula;

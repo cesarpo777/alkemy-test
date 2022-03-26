@@ -1,7 +1,9 @@
 
 const { DataTypes} = require('sequelize');
 const db = require('../db/config');
-const Pelicula = require('../models/Pelicula')
+const GeneroYPeliculas = require('./GeneroYPeliculas');
+const Pelicula = require('./Pelicula')
+
 
 
 const Genero = db.define('Genero', {
@@ -19,7 +21,8 @@ const Genero = db.define('Genero', {
    
 }, { timestamps: false })
 
-Genero.hasOne(Pelicula)
+
+//Genero.belongsToMany( Pelicula, { through: GeneroYPeliculas})
 
 
 module.exports = Genero;
